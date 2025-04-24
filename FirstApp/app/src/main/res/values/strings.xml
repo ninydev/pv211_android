@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FirstApp</string>
+    <string name="edit_text_hint">Enter Data here</string>
+    <string name="lang_java">Java</string>
+    <string name="lang_php">Php</string>
+    <string name="tg_on">on</string>
+    <string name="tg_off">off</string>
+</resources>
