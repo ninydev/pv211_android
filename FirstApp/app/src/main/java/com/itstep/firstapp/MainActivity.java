@@ -26,28 +26,29 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        workSeekBar();
 
     }
 
+
+
     protected void workSeekBar() {
-        ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                TextView textView = findViewById(R.id.text_view);
-                textView.setText(String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                Log.i("SEEK_BAR", "Started tracking");
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.i("SEEK_BAR", "Stopped tracking");
-            }
-        });
+//        ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                TextView textView = findViewById(R.id.text_view);
+//                textView.setText(String.valueOf(progress));
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//                Log.i("SEEK_BAR", "Started tracking");
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                Log.i("SEEK_BAR", "Stopped tracking");
+//            }
+//        });
     }
 
     public void onJavaClick(View v) {
@@ -62,32 +63,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void workTextView() {
-        EditText editText = findViewById(R.id.edit_text);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                String msg = "Before: '" + s + "' " + start + " " + count + " " + after;
+//        EditText editText = findViewById(R.id.edit_text);
+//
+//        editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+////                String msg = "Before: '" + s + "' " + start + " " + count + " " + after;
+////                Log.i("EDIT_TEXT", msg);
+////                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                TextView textView = findViewById(R.id.text_view);
+//                textView.setText(s);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String msg = "After: '" + s + "'";
 //                Log.i("EDIT_TEXT", msg);
-//                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                TextView textView = findViewById(R.id.text_view);
-                textView.setText(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String msg = "After: '" + s + "'";
-                Log.i("EDIT_TEXT", msg);
-                Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT)
-                        .setAction("Undo", v -> {
-                            // Handle undo action
-                        })
-                        .show();
-            }
-        });
+//                Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT)
+//                        .setAction("Undo", v -> {
+//                            // Handle undo action
+//                        })
+//                        .show();
+//            }
+//        });
     }
 }
