@@ -5,7 +5,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +22,55 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<String> countriesInActivity = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // Data (countries) initialization
+        String [] countriesLoadFromResources = getResources().getStringArray(R.array.countries);
+        createCountries();
+
+        ListView countryListView = findViewById(R.id.country_list_view);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_activated_1,
+                // R.layout.my_string_list_item,
+                // countriesLoadFromResources
+                countriesInActivity
+        );
+
+        countryListView.setAdapter(arrayAdapter);
+
+        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(view.getContext(),
+                        "Clicked: " + countriesLoadFromResources[position], Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button btnAddCountry = findViewById(R.id.btn_add_country);
+
+        btnAddCountry.setOnClickListener(v -> {
+            String newCountry = ((EditText) findViewById(R.id.country_name)).getText().toString();
+            if (newCountry.isEmpty()) {
+                Toast.makeText(this, "Please enter a country name", Toast.LENGTH_SHORT).show();
+            } else {
+                countriesInActivity.add(newCountry);
+                arrayAdapter.notifyDataSetChanged();
+                ((EditText) findViewById(R.id.country_name)).setText("");
+            }
+        });
+
 
 
     }
@@ -90,5 +136,16 @@ public class MainActivity extends AppCompatActivity {
 //                        .show();
 //            }
 //        });
+    }
+
+    protected void createCountries() {
+        countriesInActivity.add("Ukraine");
+        countriesInActivity.add("USA");
+        countriesInActivity.add("Germany");
+        countriesInActivity.add("France");
+        countriesInActivity.add("Italy");
+        countriesInActivity.add("Spain");
+        countriesInActivity.add("Poland");
+        countriesInActivity.add("Czech Republic");
     }
 }

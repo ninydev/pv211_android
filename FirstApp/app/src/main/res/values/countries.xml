@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_country">Add</string>
+    <string-array name="countries">
+        <item>Ukraine</item>
+        <item>United States</item>
+        <item>Canada</item>
+        <item>Mexico</item>
+        <item>United Kingdom</item>
+        <item>Germany</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Spain</item>
+        <item>Australia</item>
+        <item>Japan</item>
+    </string-array>
+</resources>
