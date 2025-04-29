@@ -21,12 +21,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.itstep.firstapp.countries.Country;
+import com.itstep.firstapp.countries.CountryAdapter;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> countriesInActivity = new ArrayList<>();
+    private ArrayList<Country> countries = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,46 +37,89 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Data (countries) initialization
-        String [] countriesLoadFromResources = getResources().getStringArray(R.array.countries);
-        createCountries();
-
         ListView countryListView = findViewById(R.id.country_list_view);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_activated_1,
-                // R.layout.my_string_list_item,
-                // countriesLoadFromResources
-                countriesInActivity
-        );
+        loadCountries();
+        CountryAdapter countryAdapter = new CountryAdapter(this, R.layout.counties_list_item, countries);
 
-        countryListView.setAdapter(arrayAdapter);
-
-        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(),
-                        "Clicked: " + countriesLoadFromResources[position], Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Button btnAddCountry = findViewById(R.id.btn_add_country);
-
-        btnAddCountry.setOnClickListener(v -> {
-            String newCountry = ((EditText) findViewById(R.id.country_name)).getText().toString();
-            if (newCountry.isEmpty()) {
-                Toast.makeText(this, "Please enter a country name", Toast.LENGTH_SHORT).show();
-            } else {
-                countriesInActivity.add(newCountry);
-                arrayAdapter.notifyDataSetChanged();
-                ((EditText) findViewById(R.id.country_name)).setText("");
-            }
-        });
-
-
-
+        countryListView.setAdapter(countryAdapter);
     }
+
+
+
+    protected void loadCountries() {
+        countries.add(new Country(
+                "Ukraine",
+                "https://flagcdn.com/w320/ua.png",
+                "Kyiv",
+                44134693,
+                603628,
+                "Hryvnia"
+        ));
+        countries.add(new Country(
+                "USA",
+                "https://flagcdn.com/w320/us.png",
+                "Washington, D.C.",
+                331002651,
+                9833520,
+                "Dollar"
+        ));
+        countries.add(new Country(
+                "Germany",
+                "https://flagcdn.com/w320/de.png",
+                "Berlin",
+                83166711,
+                357022,
+                "Euro"
+        ));
+        countries.add(new Country(
+                "France",
+                "https://flagcdn.com/w320/fr.png",
+                "Paris",
+                65273511,
+                551695,
+                "Euro"
+        ));
+    }
+
+
+
+//    // Data (countries) initialization
+//    String [] countriesLoadFromResources = getResources().getStringArray(R.array.countries);
+//    createCountries();
+//
+//    ListView countryListView = findViewById(R.id.country_list_view);
+//
+//    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+//            this,
+//            android.R.layout.simple_list_item_activated_1,
+//            // R.layout.my_string_list_item,
+//            // countriesLoadFromResources
+//            countriesInActivity
+//    );
+//
+//        countryListView.setAdapter(arrayAdapter);
+//
+//        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            Toast.makeText(view.getContext(),
+//                    "Clicked: " + countriesLoadFromResources[position], Toast.LENGTH_SHORT).show();
+//        }
+//    });
+//
+//    Button btnAddCountry = findViewById(R.id.btn_add_country);
+//
+//        btnAddCountry.setOnClickListener(v -> {
+//        String newCountry = ((EditText) findViewById(R.id.country_name)).getText().toString();
+//        if (newCountry.isEmpty()) {
+//            Toast.makeText(this, "Please enter a country name", Toast.LENGTH_SHORT).show();
+//        } else {
+//            countriesInActivity.add(newCountry);
+//            arrayAdapter.notifyDataSetChanged();
+//            ((EditText) findViewById(R.id.country_name)).setText("");
+//        }
+//    });
 
 
 
