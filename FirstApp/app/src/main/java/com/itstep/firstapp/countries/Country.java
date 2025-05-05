@@ -1,5 +1,7 @@
 package com.itstep.firstapp.countries;
 
+import androidx.annotation.NonNull;
+
 public class Country {
     private String name;
     private String flagUrl;
@@ -57,4 +59,9 @@ public class Country {
         return currency;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return name + " (" + capital + ")";
+    }
 }

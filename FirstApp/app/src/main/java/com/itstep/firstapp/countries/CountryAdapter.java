@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itstep.firstapp.R;
 import com.squareup.picasso.Picasso;
@@ -30,6 +31,11 @@ public class CountryAdapter extends ArrayAdapter<Country> {
     }
 
 
+//    @Override
+//    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//        return getView(position,convertView,parent);
+//    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -38,7 +44,8 @@ public class CountryAdapter extends ArrayAdapter<Country> {
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.counties_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.counties_list_item, parent, false);
         }
 
         // Lookup view for data population
@@ -47,25 +54,31 @@ public class CountryAdapter extends ArrayAdapter<Country> {
 
         // Populate the data into the template view using the data object
         tvName.setText(country.getName());
-        tvCountryDetails.setText("" + country.getCapital() + ", \n" + country.getPopulation() +
-                " people, \n" + country.getArea() + " km², \n " + country.getCurrency() +
-                ", \n clickable: " + country.getClickCount());
-
-        // Get the ImageView and set the image using a library like Picasso or Glide
-        ImageView ivFlag = convertView.findViewById(R.id.country_flag);
-        Picasso.get().load(country.getFlagUrl()).into(ivFlag);
-
-        Button btnClick = convertView.findViewById(R.id.country_button);
-        btnClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                country.incrementClickCount();
-                tvCountryDetails.setText("" + country.getCapital() + ", \n" + country.getPopulation() +
-                        " people, \n" + country.getArea() + " km², \n " + country.getCurrency() +
-                        ", \n clickable: " + country.getClickCount());
-            }
-        });
+//        tvCountryDetails.setText("" + country.getCapital() + ", \n" + country.getPopulation() +
+//                " people, \n" + country.getArea() + " km², \n " + country.getCurrency() +
+//                ", \n clickable: " + country.getClickCount());
+//
+//        // Get the ImageView and set the image using a library like Picasso or Glide
+//        ImageView ivFlag = convertView.findViewById(R.id.country_flag);
+//        Picasso.get().load(country.getFlagUrl()).into(ivFlag);
+//
+//        Button btnClick = convertView.findViewById(R.id.country_button);
+//        btnClick.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                countries.remove(position);
+//                notifyDataSetChanged();
+//                Toast.makeText(v.getContext(), "Country " + country.getName(), Toast.LENGTH_SHORT).show();
+//
+////                country.incrementClickCount();
+////                tvCountryDetails.setText("" + country.getCapital() + ", \n" + country.getPopulation() +
+////                        " people, \n" + country.getArea() + " km², \n " + country.getCurrency() +
+////                        ", \n clickable: " + country.getClickCount());
+//            }
+//        });
 
         return convertView;
     }
+
 }

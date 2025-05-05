@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,12 +38,23 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        ListView countryListView = findViewById(R.id.country_list_view);
-
         loadCountries();
-        CountryAdapter countryAdapter = new CountryAdapter(this, R.layout.counties_list_item, countries);
+        createCountries();
 
-        countryListView.setAdapter(countryAdapter);
+        Spinner spinner = findViewById(R.id.country_spinner);
+        CountryAdapter spinnerAdapter = new CountryAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                countries
+        );
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+
+
+        // CountryAdapter countryAdapter = new CountryAdapter(this, R.layout.counties_list_item, countries);
+        // ListView countryListView = findViewById(R.id.country_list_view);
+        // countryListView.setAdapter(countryAdapter);
     }
 
 
@@ -79,6 +91,78 @@ public class MainActivity extends AppCompatActivity {
                 65273511,
                 551695,
                 "Euro"
+        ));
+        countries.add(new Country(
+                "Italy",
+                "https://flagcdn.com/w320/it.png",
+                "Rome",
+                60317116,
+                301340,
+                "Euro"
+        ));
+        countries.add(new Country(
+                "Spain",
+                "https://flagcdn.com/w320/es.png",
+                "Madrid",
+                47351567,
+                505990,
+                "Euro"
+        ));
+        countries.add(new Country(
+                "Canada",
+                "https://flagcdn.com/w320/ca.png",
+                "Ottawa",
+                38005238,
+                9984670,
+                "Canadian Dollar"
+        ));
+        countries.add(new Country(
+                "Australia",
+                "https://flagcdn.com/w320/au.png",
+                "Canberra",
+                25687041,
+                7692024,
+                "Australian Dollar"
+        ));
+        countries.add(new Country(
+                "Japan",
+                "https://flagcdn.com/w320/jp.png",
+                "Tokyo",
+                125960000,
+                377975,
+                "Yen"
+        ));
+        countries.add(new Country(
+                "Brazil",
+                "https://flagcdn.com/w320/br.png",
+                "Brasília",
+                213993437,
+                8515767,
+                "Real"
+        ));
+        countries.add(new Country(
+                "South Africa",
+                "https://flagcdn.com/w320/za.png",
+                "Pretoria",
+                59308690,
+                1219090,
+                "Rand"
+        ));
+        countries.add(new Country(
+                "India",
+                "https://flagcdn.com/w320/in.png",
+                "New Delhi",
+                1393409038,
+                3287263,
+                "Indian Rupee"
+        ));
+        countries.add(new Country(
+                "Mexico",
+                "https://flagcdn.com/w320/mx.png",
+                "Mexico City",
+                126014024,
+                1964375,
+                "Mexican Peso"
         ));
     }
 
