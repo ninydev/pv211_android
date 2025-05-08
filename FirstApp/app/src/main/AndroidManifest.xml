@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,6 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstApp"
         tools:targetApi="31">
+        <activity
+            android:name=".cars.activites.CarsCollectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.colors.ColorsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.colors.ColorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.cars.CarsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.cars.CarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.brands.BrandActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cars.activites.brands.BrandsListActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
