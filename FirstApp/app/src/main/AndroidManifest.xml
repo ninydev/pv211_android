@@ -15,25 +15,25 @@
         android:theme="@style/Theme.FirstApp"
         tools:targetApi="31">
         <activity
-            android:name=".cars.activites.CarsCollectionActivity"
+            android:name=".cars.activities.CarsCollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.colors.ColorsListActivity"
+            android:name=".cars.activities.colors.ColorsListActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.colors.ColorActivity"
+            android:name=".cars.activities.colors.ColorActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.cars.CarsListActivity"
+            android:name=".cars.activities.cars.CarsListActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.cars.CarActivity"
+            android:name=".cars.activities.cars.CarActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.brands.BrandActivity"
+            android:name=".cars.activities.brands.BrandActivity"
             android:exported="false" />
         <activity
-            android:name=".cars.activites.brands.BrandsListActivity"
+            android:name=".cars.activities.brands.BrandsListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

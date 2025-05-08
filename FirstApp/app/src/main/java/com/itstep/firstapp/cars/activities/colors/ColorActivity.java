@@ -1,4 +1,4 @@
-package com.itstep.firstapp.cars.activites.colors;
+package com.itstep.firstapp.cars.activities.colors;
 
 import android.os.Bundle;
 

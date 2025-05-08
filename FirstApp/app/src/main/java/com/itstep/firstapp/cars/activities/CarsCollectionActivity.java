@@ -1,4 +1,4 @@
-package com.itstep.firstapp.cars.activites.colors;
+package com.itstep.firstapp.cars.activities;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.itstep.firstapp.R;
 
-public class ColorsListActivity extends AppCompatActivity {
+public class CarsCollectionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_colors_list);
+        setContentView(R.layout.activity_cars_collection);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

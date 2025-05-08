@@ -1,4 +1,4 @@
-package com.itstep.firstapp.cars.activites.brands;
+package com.itstep.firstapp.cars.activities.brands;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.itstep.firstapp.R;
 
-public class BrandActivity extends AppCompatActivity {
+public class BrandsListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_brand);
+        setContentView(R.layout.activity_brands_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
