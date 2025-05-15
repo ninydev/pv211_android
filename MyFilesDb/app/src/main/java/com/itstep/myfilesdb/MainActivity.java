@@ -1,9 +1,12 @@
 package com.itstep.myfilesdb;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import static java.net.HttpURLConnection.HTTP_OK;
+
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,72 +14,93 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    private void writeToFile(){
-         File file = new File(getFilesDir(), "myfile.txt");
-         try (FileOutputStream fos = new FileOutputStream(file)) {
-             fos.write("Hello, World!".getBytes());
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
+    protected ArrayList<FoxModel> foxs = new ArrayList<>();
+
+    protected ArrayAdapter<FoxModel> adapter;
+
+
+
+    protected String TAG = "MainActivity";
+    protected String API_URL = "https://randomfox.ca/floof/";
+    protected void loadData() {
+
     }
 
-    private void readFromFile(){
-        File file = new File(getFilesDir(), "myfile.txt");
-        if (file.exists()) {
-            Log.i("File", "File exists: " + file.getAbsolutePath());
+    protected void getContent() {
+        HttpsURLConnection connection = null;
+        InputStream inputStream = null;
+        BufferedReader reader = null;
 
-            try {
-                String content = new String(java.nio.file.Files.readAllBytes(file.toPath()));
-                Log.i("File", "File content: " + content);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            URL url = new URL(API_URL);
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.connect();
+
+            if (connection.getResponseCode() != HTTP_OK) {
+                Log.e(TAG, "Error response: " + connection.getResponseCode());
+                return;
             }
-        } else {
-            Log.i("File", "File does not exist");
-        }
-    }
 
-    SQLiteDatabase db = null;
+            inputStream = connection.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-    private void openDatabase() {
-        db = openOrCreateDatabase("my.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS files " +
-                "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
-    }
+            StringBuilder sb = new StringBuilder();
+            String line;
 
-    private void seedDatabase() {
-        db.execSQL("INSERT OR IGNORE INTO files (id, name) VALUES (1, 'file1.txt');");
-        db.execSQL("INSERT OR IGNORE  INTO files (id, name) VALUES (2, 'file2.txt');");
-        db.execSQL("INSERT OR IGNORE  INTO files (id, name) VALUES (3, 'file3.txt');");
-    }
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
 
-    private void echoDatabase() {
-        // db.execSQL("SELECT * FROM files;");
+            String jsonResponse = sb.toString();
+            Log.d(TAG, "Response: " + jsonResponse);
 
-        Cursor cursor = db.rawQuery("SELECT name, id FROM files;", null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int idIndex = cursor.getColumnIndex("id");
-                int nameIndex = cursor.getColumnIndex("name");
+            org.json.JSONObject jsonObject = new org.json.JSONObject(jsonResponse);
+            String image = jsonObject.optString("image");
+            String link = jsonObject.optString("link");
+            FoxModel fox = new FoxModel();
+            fox.setImage(image);
+            fox.setLink(link);
+            foxs.add(fox);
+            runOnUiThread(() -> {
+                adapter.notifyDataSetChanged();
+            });
 
-                if (idIndex != -1 && nameIndex != -1) {
-                    int id = cursor.getInt(idIndex);
-                    String name = cursor.getString(nameIndex);
-                    Log.i("DB", "ID: ("+ idIndex + ") " + id + ", Name: " + name);
-                } else {
-                    Log.e("DB", "Column not found in cursor");
+        } catch (Exception e) {
+            Log.e(TAG, "Error connection: " + e.getMessage());
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Error closing reader: " + e.getMessage());
                 }
             }
-            cursor.close();
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Error closing input stream: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
-
 
 
     @Override
@@ -89,12 +113,23 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Проверка и запрос разрешения на доступ к интернету (если требуется)
+        if (checkSelfPermission(android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.INTERNET}, 1);
+        }
+        // Load data from API
+        // getContent();
 
-        openDatabase();
-        seedDatabase();
-        echoDatabase();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foxs);
+        ListView lw = findViewById(R.id.list_view);
+        lw.setAdapter(adapter);
 
-        writeToFile();
-        readFromFile();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getContent();
+            }
+        }).start();
+
     }
 }
