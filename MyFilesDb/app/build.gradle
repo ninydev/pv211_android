@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
 android {
     namespace 'com.itstep.myfilesdb'
     compileSdk 35
@@ -29,7 +30,9 @@ android {
 }
 
 dependencies {
-
+    implementation("com.github.holgerbrandl:themoviedbapi:1.15")
+    // implementation("uk.co.conoregan:themoviedbapi:{1.1.5}")
+    // implementation(libs.themoviedbapi)
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
